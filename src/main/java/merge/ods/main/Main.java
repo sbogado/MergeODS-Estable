@@ -13,8 +13,6 @@ public class Main {
 
 	
 	public static void main(String[] args) {
-		InputStream stream = System.in;
-		Scanner scanner = new Scanner(stream);
 		
 		try {
 
@@ -23,8 +21,7 @@ public class Main {
 			result.saveAs(new File(mixer.getMixerStrategy().getProcessData().getMixerConfiguration().getResultFileName()));
 			
 			System.out.println("La mezcla ha sido exitosa\n"
-					+ "Su archivo resultado fué generado con el nombre de "+mixer.getMixerStrategy().getProcessData().getMixerConfiguration().getResultFileName()+"\n"
-					+ "Lo encontrará en el mismo directorio que los demas archivos");
+					+ "Su archivo resultado fué generado con el nombre de "+ mixer.getMixerStrategy().getProcessData().getMixerConfiguration().getResultFileName()+"\n");
 		
 		}
 		catch(Exception e) {
@@ -32,13 +29,6 @@ public class Main {
 			System.out.println("La ejecución no finalizó correctamente");
 			
 			e.printStackTrace();
-		}
-		finally {
-			
-			System.out.println("Presione Enter para finalizar");
-			scanner.nextLine();
-			scanner.close();
-			System.exit(0);
 		}
 	}
 

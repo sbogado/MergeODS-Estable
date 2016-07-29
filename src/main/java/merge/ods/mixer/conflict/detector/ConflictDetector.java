@@ -7,6 +7,10 @@ import merge.ods.mixer.conflict.ConflictType;
 public abstract class ConflictDetector {
 
 	private ConflictType conflictType;
+
+	public ConflictDetector() {
+	}
+
 	
 	public ConflictDetector(ConflictType conflictType) {
 		this.setConflictType(conflictType);
@@ -54,11 +58,11 @@ public abstract class ConflictDetector {
 		return String.valueOf(processData.getSecondFileRowNumber() + 1);
 	}
 	
-	public ConflictType getConflictType() {
+	protected ConflictType getConflictType() {
 		return conflictType;
 	}
 
-	public void setConflictType(ConflictType conflictType) {
+	protected void setConflictType(ConflictType conflictType) {
 		this.conflictType = conflictType;
 	}
 

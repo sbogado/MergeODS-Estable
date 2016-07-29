@@ -1,6 +1,7 @@
 package merge.ods.mixer.conflict.detector.row;
 
 import java.awt.Color;
+import static merge.ods.helper.CellHelper.backgroundColorOf;
 
 import org.jopendocument.dom.spreadsheet.MutableCell;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
@@ -14,20 +15,14 @@ public class RowConflictDetector extends ConflictDetector{
 
 	private Boolean isFirstChanged = false;
 	private Boolean isSecondChanged = false;
-	private int lastRowChecked;
 	
 	public RowConflictDetector() {
-		super(ConflictType.BOTH_FILES_HAVE_CHANGED);
-		setLastRowChecked(-1);
+		super();
 	}
 	
 	@Override
 	public void detect(ProcessData processData){
-		
-		Boolean rowAlreadyChecked = processData.getActualRowNumber() == getLastRowChecked();
-		if(!rowAlreadyChecked){
-			setLastRowChecked(processData.getActualRowNumber());
-		
+				
 			Boolean originalIdentificationIsEmpty = getActualOriginalIdentification(processData).isEmpty();
 			Boolean originalAndFirstIdentificationAreEquals = getActualOriginalIdentification(processData).equals(getActualFirstFileIdentification(processData));
 			Boolean originalAndSecondIdentificationAreEquals = getActualOriginalIdentification(processData).equals(getActualSecondFileIdentification(processData));
@@ -54,30 +49,24 @@ public class RowConflictDetector extends ConflictDetector{
 						&& !(getIsFirstChanged() && getIsSecondChanged()); actualColumnNumber++) {
 					sheetOriginalCell = getOriginalFileCell(actualColumnNumber,processData);
 					sheetOriginalValue = sheetOriginalCell.getValue().toString();
-					sheetOriginalColor = sheetOriginalCell.getStyle() != null
-							? sheetOriginalCell.getStyle().getBackgroundColor(sheetOriginalCell) : Color.WHITE;
+					sheetOriginalColor = backgroundColorOf(sheetOriginalCell);
 		
 					if (!getIsFirstChanged()) {
 						sheetFirstCell = getFirstFileCell(actualColumnNumber,processData);
 						sheetFirstChangeValue = sheetFirstCell.getValue().toString();
-						sheetFirstChangeColor = sheetFirstCell.getStyle() != null
-								? sheetFirstCell.getStyle().getBackgroundColor(sheetFirstCell) : Color.WHITE;
-								setIsFirstChanged(!sheetOriginalValue.equals(sheetFirstChangeValue)
-								|| !sheetOriginalColor.equals(sheetFirstChangeColor));
+						sheetFirstChangeColor = backgroundColorOf(sheetFirstCell);
+						setIsFirstChanged(!sheetOriginalValue.equals(sheetFirstChangeValue) || !sheetOriginalColor.equals(sheetFirstChangeColor)) ;
 					}
 					if (!getIsSecondChanged()) {
 						sheetSecondCell = getSecondFileCell(actualColumnNumber,processData);
 						sheetSecondChangeValue = sheetSecondCell.getValue().toString();
-						sheetSecondChangeColor = sheetSecondCell.getStyle() != null
-								? sheetSecondCell.getStyle().getBackgroundColor(sheetSecondCell) : Color.WHITE;
-								setIsSecondChanged( !sheetOriginalValue.equals(sheetSecondChangeValue)
-								|| !sheetOriginalColor.equals(sheetSecondChangeColor));
+						sheetSecondChangeColor = backgroundColorOf(sheetSecondCell);
+						setIsSecondChanged(!sheetOriginalValue.equals(sheetSecondChangeValue) || !sheetOriginalColor.equals(sheetSecondChangeColor)) ;
 					}
 				}
 			}
 			
 			addConflict(processData);
-		}
 	}
 
 	@Override
@@ -125,15 +114,5 @@ public class RowConflictDetector extends ConflictDetector{
 	public void setIsSecondChanged(Boolean isSecondChanged) {
 		this.isSecondChanged = isSecondChanged;
 	}
-
-	public int getLastRowChecked() {
-		return lastRowChecked;
-	}
-
-	public void setLastRowChecked(int lastRowChecked) {
-		this.lastRowChecked = lastRowChecked;
-	}
-
-
 
 }

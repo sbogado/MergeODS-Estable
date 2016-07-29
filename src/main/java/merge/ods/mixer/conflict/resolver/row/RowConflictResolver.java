@@ -1,8 +1,10 @@
 package merge.ods.mixer.conflict.resolver.row;
 
 import org.jopendocument.dom.spreadsheet.MutableCell;
+import static merge.ods.helper.CellHelper.backgroundColorOf;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
+import merge.ods.helper.CellHelper;
 import merge.ods.mixer.conflict.ConflictType;
 import merge.ods.mixer.conflict.resolver.ConflictResolver;
 
@@ -17,8 +19,8 @@ public abstract class RowConflictResolver extends ConflictResolver{
 	}
 	
 	public void setColorFromCell(MutableCell<SpreadSheet> cellToColor,MutableCell<SpreadSheet> cellColorOwner) {
-		if(!cellToColor.getStyle().getBackgroundColor(cellToColor).equals(cellColorOwner.getStyle().getBackgroundColor(cellColorOwner))){
-			cellToColor.setBackgroundColor(cellColorOwner.getStyle().getBackgroundColor(cellColorOwner));
+		if(!backgroundColorOf(cellToColor).equals(backgroundColorOf(cellColorOwner))){
+			CellHelper.setBackgroundColor(cellToColor,backgroundColorOf(cellColorOwner));
 		}
 	
 	}

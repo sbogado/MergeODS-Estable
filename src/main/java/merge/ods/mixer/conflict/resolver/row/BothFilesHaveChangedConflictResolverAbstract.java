@@ -8,7 +8,7 @@ import org.jopendocument.dom.spreadsheet.SpreadSheet;
 import merge.ods.main.ProcessData;
 import merge.ods.mixer.conflict.Conflict;
 import merge.ods.mixer.conflict.ConflictType;
-
+import static merge.ods.helper.CellHelper.backgroundColorOf;
 public abstract class BothFilesHaveChangedConflictResolverAbstract extends RowConflictResolver{
 
 	private Boolean conflictEncountered;
@@ -36,9 +36,9 @@ public abstract class BothFilesHaveChangedConflictResolverAbstract extends RowCo
 		final String sheetFirstChangeValue = sheetFirstChangeCell.getValue().toString();
 		final String sheetSecondChangeValue = sheetSecondChangeCell.getValue().toString();
 		
-		final Color sheetOriginalColor = sheetOriginalCell.getStyle().getBackgroundColor(sheetOriginalCell);
-		final Color sheetFirstChangeColor = sheetFirstChangeCell.getStyle().getBackgroundColor(sheetFirstChangeCell);
-		final Color sheetSecondChangeColor = sheetSecondChangeCell.getStyle().getBackgroundColor(sheetSecondChangeCell);
+		final Color sheetOriginalColor = backgroundColorOf(sheetOriginalCell);
+		final Color sheetFirstChangeColor = backgroundColorOf(sheetFirstChangeCell);
+		final Color sheetSecondChangeColor = backgroundColorOf(sheetSecondChangeCell);
 		
 		doBeforeMix(columnNumber,rowNumber,sheetOriginalCell,sheetFirstChangeCell,sheetSecondChangeCell,
 				sheetOriginalValue,sheetFirstChangeValue,sheetSecondChangeValue,

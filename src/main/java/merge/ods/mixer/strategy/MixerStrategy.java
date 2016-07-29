@@ -37,7 +37,7 @@ public abstract class MixerStrategy {
 		for (setActualRowNumber(getProcessData().getMixerConfiguration().getFirstRowToMix()
 				- 1); getActualRowNumber() <= getProcessData().getMixerConfiguration().getLastRowToMix() - 1; getProcessData()
 						.setActualRowNumber(getActualRowNumber() + 1)) {
-			logger.log(Level.INFO, "Mixing row: " + (getActualRowNumber() + 1) + " of "
+			logger.log(Level.FINE, "Mixing row: " + (getActualRowNumber() + 1) + " of "
 					+ getProcessData().getMixerConfiguration().getLastRowToMix());
 			doMixRow();
 		}

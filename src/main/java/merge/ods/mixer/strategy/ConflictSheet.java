@@ -6,6 +6,7 @@ import org.jopendocument.dom.spreadsheet.MutableCell;
 import org.jopendocument.dom.spreadsheet.Sheet;
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
+import merge.ods.helper.CellHelper;
 import merge.ods.main.ProcessData;
 import merge.ods.mixer.configuration.MixerConfiguration;
 import merge.ods.mixer.conflict.Conflict;
@@ -103,7 +104,7 @@ public class ConflictSheet {
 
 	public void setColorFromCell(MutableCell<SpreadSheet> cellToColor,Color color) {
 		if(color != null){
-			cellToColor.setBackgroundColor(color);
+			CellHelper.setBackgroundColor(cellToColor, color);
 		}
 	}
 	
