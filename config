@@ -1,0 +1,6 @@
+originalFileName=src/test/resources/original.ods
+firstChangeFileName= src/test/resources/firstChange.ods
+secondChangeFileName = src/test/resources/secondChange.ods
+resultFileName = src/test/resources/result.ods
+firstRowToMix = 14
+lastRowToMix = 21
